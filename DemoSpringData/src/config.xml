@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="employeesRepository" class="myrepositories.JdbcEmployeesRepository">
+		<constructor-arg ref="dataSourceUnpooled" />
+	</bean>
+
+	<!--  This is the Apache-Commons BasicDataSource data source, which supports connection pooling.
+	      It needs the following JARs on the classpath (see C:\SpringLibraries\Commons folder):  
+	        - commons-dbcp
+	        - commons-pool
+	        - commons-collections -->
+	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/northwind" />
+		<property name="username" value="root" />
+		<property name="password" value="Keep0ut01" />
+	</bean>
+
+	<!--  This is the Spring DriverManagerDataSource data source, which doesn't support connection pooling. -->
+	<bean name="dataSourceUnpooled" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/northwind"/>
+		<property name="username" value="root" />
+		<property name="password" value="Keep0ut01" />
+	</bean>
+</beans>
